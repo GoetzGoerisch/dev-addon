@@ -1,4 +1,4 @@
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
 name: Goetz Home Assistant development addons
-url: 'https://github.com/GoetzGoerisch/dev-addons'
+url: 'https://github.com/GoetzGoerisch/dev-addon'
 maintainer: Goetz Goerisch
