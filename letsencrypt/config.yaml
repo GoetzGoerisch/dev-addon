@@ -1,8 +1,8 @@
 ---
 version: 5.3.0
 slug: letsencrypt-dev
-name: Let's Encrypt
-description: Manage certificate from Let's Encrypt
+name: Let's Encrypt (DEV)
+description: Manage certificate from Let's Encrypt (DEV)
 url: https://github.com/GoetzGoerisch/dev-addon/tree/main/letsencrypt
 arch:
   - armhf
@@ -11,7 +11,7 @@ arch:
   - amd64
   - i386
 boot: manual
-image: GoetzGoerisch/{arch}-addon-letsencrypt
+image: goetzgoerisch/{arch}-addon-letsencrypt
 init: false
 map:
   - ssl:rw
