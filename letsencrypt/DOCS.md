@@ -78,8 +78,9 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
-dns-websupport
+# dns-websupport
 ```
+
 </details>
 
 <details>
@@ -166,6 +167,7 @@ plesk_api_url: ''
 simply_account_name: ''
 simply_api_key: ''
 ```
+
 </details>
 
 ### Configure certificate files
@@ -225,6 +227,7 @@ By default, The addon uses Let’s Encrypt’s default server at https://acme-v0
   ```
 
 If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
+
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
   acme_root_ca_cert: |
