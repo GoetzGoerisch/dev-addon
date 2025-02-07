@@ -15,20 +15,20 @@ ARG \
     CERTBOT_DNS_DUCKDNS_VERSION \
     CERTBOT_DNS_DYNU_VERSION \
     CERTBOT_DNS_EASYDNS_VERSION \
-    CERTBOT_DNS_HE_VERSION \
+    CERTBOT_DNS_HURRICANE_ELECTRIC_VERSION \
     CERTBOT_DNS_HETZNER_VERSION \
     CERTBOT_DNS_INFOMANIAK_VERSION \
     CERTBOT_DNS_INWX_VERSION \
     CERTBOT_DNS_IONOS_VERSION \
     CERTBOT_DNS_JOKER_VERSION \
     CERTBOT_DNS_LOOPIA_VERSION \
-   # CERTBOT_DNS_MIJN_HOST_VERSION \
+    CERTBOT_DNS_MIJN_HOST_VERSION \
     CERTBOT_DNS_NAMECHEAP_VERSION \
     CERTBOT_DNS_NORISNETWORK_VERSION \
     CERTBOT_DNS_SIMPLY_VERSION \
     CERTBOT_DNS_TRANSIP_VERSION \
     CERTBOT_DNS_PORKBUN_VERSION \
-   # CERTBOT_DNS_WEBSUPPORT_VERSION \
+    CERTBOT_DNS_WEBSUPPORT_VERSION \
     CERTBOT_NETCUP_VERSION \
     CERTBOT_NJALLA_VERSION \
     CERTBOT_GANDI_VERSION \
@@ -74,7 +74,8 @@ RUN \
         certbot-dns-linode==${CERTBOT_VERSION} \
         certbot-dns-loopia==${CERTBOT_DNS_LOOPIA_VERSION} \
         certbot-dns-luadns==${CERTBOT_VERSION} \
-       # certbot-dns-mijn-host==${CERTBOT_DNS_MIJN_HOST_VERSION} \
+        # Disabled due to unresolved issues
+        # certbot-dns-mijn-host==${CERTBOT_DNS_MIJN_HOST_VERSION} \
         certbot-dns-njalla==${CERTBOT_NJALLA_VERSION} \
         certbot-dns-norisnetwork==${CERTBOT_DNS_NORISNETWORK_VERSION} \
         certbot-dns-nsone==${CERTBOT_VERSION} \
@@ -90,10 +91,11 @@ RUN \
         certbot-dns-transip==${CERTBOT_DNS_TRANSIP_VERSION} \
         certbot-dns-inwx==${CERTBOT_DNS_INWX_VERSION} \
         certbot-dns-dreamhost==${CERTBOT_DNS_DREAMHOST_VERSION} \
-        certbot-dns-he==${CERTBOT_DNS_HE_VERSION} \
+        certbot-dns-hurricane-electric==${CERTBOT_DNS_HURRICANE_ELECTRIC_VERSION} \
         certbot-dns-easydns==${CERTBOT_DNS_EASYDNS_VERSION} \
         certbot-dns-domainoffensive==${CERTBOT_DNS_DOMAINOFFENSIVE_VERSION} \
-       # certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \
+        # Disabled due to unresolved issues
+        # certbot-dns-websupport==${CERTBOT_DNS_WEBSUPPORT_VERSION} \
         certbot-dns-plesk==${CERTBOT_DNS_PLESK_VERSION} \
         acme==${ACME_VERSION} \
     && apk del .build-dependencies

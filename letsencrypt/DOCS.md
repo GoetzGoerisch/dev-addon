@@ -61,7 +61,7 @@ dns-joker
 dns-linode
 dns-loopia
 dns-luadns
-#disabled dns-mijn-host
+dns-mijn-host
 dns-njalla
 dns-noris
 dns-simply
@@ -78,9 +78,8 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
-# dns-websupport
+dns-websupport
 ```
-
 </details>
 
 <details>
@@ -138,6 +137,7 @@ rfc2136_port: ''
 rfc2136_name: ''
 rfc2136_secret: ''
 rfc2136_algorithm: ''
+rfc2136_sign_query: false
 aws_access_key_id: ''
 aws_secret_access_key: ''
 sakuracloud_api_token: ''
@@ -167,7 +167,6 @@ plesk_api_url: ''
 simply_account_name: ''
 simply_api_key: ''
 ```
-
 </details>
 
 ### Configure certificate files
@@ -227,7 +226,6 @@ By default, The addon uses Let’s Encrypt’s default server at https://acme-v0
   ```
 
 If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
-
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
   acme_root_ca_cert: |
@@ -785,6 +783,8 @@ An example configuration:
     rfc2136_name: letsencrypt
     rfc2136_secret: "secret-key"
     rfc2136_algorithm: HMAC-SHA512
+    # Optional: Enable TSIG key signing for DNS queries (useful for BIND multiple views)
+    rfc2136_sign_query: true
   ```
 
 </details>

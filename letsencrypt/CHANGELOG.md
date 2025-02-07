@@ -2,6 +2,10 @@
 
 ## 5.3.0
 
+- Disabled certbot-dns-mijn-host (Breaking change)
+  - issue: [mijnhost/certbot-dns-mijn-host#8](https://github.com/mijnhost/certbot-dns-mijn-host/issues/8)
+- Disabled certbot-dns-websupport (Breaking change)
+  - issue: [johnybx/certbot-dns-websupport#1](https://github.com/johnybx/certbot-dns-websupport/issues/1)
 - Update certbot to 3.1.0
 - Update acme to 3.1.0
 - Update cryptography to 44.0.0
@@ -16,6 +20,14 @@
 - Update certbot-dns-netcup to 1.4.4
 - Update certbot-dns-njalla to 2.0.2
 - Update the remaining dns challenges with DNS_PROVIDER placeholder
+
+## 5.2.12
+
+- Add rfc2136_sign_query parameter to config.yaml
+
+## 5.2.11
+
+- Use a newer, maintained Hurricane Electric plugin.
 
 ## 5.2.10
 
