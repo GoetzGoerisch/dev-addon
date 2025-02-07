@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.3.1
+
+- Update to Python 3.13
+- Update to Alpine 3.21
+
 ## 5.3.0
 
 - Disabled certbot-dns-mijn-host (Breaking change)
