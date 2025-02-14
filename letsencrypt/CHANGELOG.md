@@ -1,9 +1,13 @@
 # Changelog
 
+## 5.3.2
+
+- fix infomaniak
+- sync with upstream
+
 ## 5.3.1
 
-- Update to Python 3.13
-- Update to Alpine 3.21
+- incorporated into 5.3.0
 
 ## 5.3.0
 
@@ -11,9 +15,11 @@
   - issue: [mijnhost/certbot-dns-mijn-host#8](https://github.com/mijnhost/certbot-dns-mijn-host/issues/8)
 - Disabled certbot-dns-websupport (Breaking change)
   - issue: [johnybx/certbot-dns-websupport#1](https://github.com/johnybx/certbot-dns-websupport/issues/1)
+- Update to Python 3.13
+- Update to Alpine 3.21
 - Update certbot to 3.1.0
 - Update acme to 3.1.0
-- Update cryptography to 44.0.0
+- Update cryptography to 44.0.1
 - Update certbot-dns-azure to 2.6.1
 - Update certbot-dns-directadmin to 10.0.13
 - Update certbot-dns-duckdns to 1.5
