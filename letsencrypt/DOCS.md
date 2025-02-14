@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Letsencrypt
+# Home Assistant Add-on: Letsencrypt (DEV)
 
 ## Installation
 
@@ -61,7 +61,7 @@ dns-joker
 dns-linode
 dns-loopia
 dns-luadns
-dns-mijn-host
+dns-mijn-host (currently disable - see changelog)
 dns-njalla
 dns-noris
 dns-simply
@@ -78,8 +78,9 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
-dns-websupport
+dns-websupport (currently disable - see changelog)
 ```
+
 </details>
 
 <details>
@@ -167,6 +168,7 @@ plesk_api_url: ''
 simply_account_name: ''
 simply_api_key: ''
 ```
+
 </details>
 
 ### Configure certificate files
@@ -226,6 +228,7 @@ By default, The addon uses Let’s Encrypt’s default server at https://acme-v0
   ```
 
 If your custom ACME server uses a certificate signed by an untrusted certificate authority (CA), you can add the root certificate to the trust store by setting its content as an option:
+
   ```yaml
   acme_server: 'https://my.custom-acme-server.com'
   acme_root_ca_cert: |
@@ -458,7 +461,6 @@ To obtain the DNS API Key Information, follow the instructions here:
 
 </details>
 
-
 <details>
   <summary>Joker DNS challenge</summary>
 
@@ -615,6 +617,7 @@ Make sure to grant the following permissions:
 Username and password can also be used in case your DirectAdmin instance has no support for login keys.
 
 Example configuration:
+
   ```yaml
   email: mail@domain.tld
   domains:
@@ -685,6 +688,7 @@ If you can't use IP whitelisting, set the `transip_global_key` parameter to `'ye
 The propagation limit will be automatically raised to 240 seconds.
 
 Example configuration:
+
   ```yaml
   email: your.email@example.com
   domains:
@@ -708,15 +712,17 @@ Example configuration:
 <details>
   <summary>OVH</summary>
 
-You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for north America).
+You will need to generate an OVH API Key first at https://eu.api.ovh.com/createToken/ (for Europe) or https://ca.api.ovh.com/createToken/ (for North America).
 
 When creating the API Key, you must ensure that the following rights are granted:
+
 * ``GET /domain/zone/*``
 * ``PUT /domain/zone/*``
 * ``POST /domain/zone/*``
 * ``DELETE /domain/zone/*``
 
 Example configuration
+
   ```yaml
   email: your.email@example.com
   domains:
@@ -731,6 +737,7 @@ Example configuration
     ovh_application_secret: 0123456789abcdef0123456789abcdef01234
     ovh_consumer_key: 0123456789abcdef0123456789abcdef01234
   ```
+
 Use `ovh_endpoint: ovh-ca` for north America region.
 
 </details>
@@ -740,16 +747,17 @@ Use `ovh_endpoint: ovh-ca` for north America region.
 
 You will need to set up a server with RFC2136 (Dynamic Update) support with a TKEY (to authenticate the updates).  How to do this will vary depending on the DNS server software in use.  For Bind9, you first need to first generate an authentication key by running
 
-  ```
+  ```shell
   $ tsig-keygen -a hmac-sha512 letsencrypt
   key "letsencrypt" {
-	  algorithm hmac-sha512;
-  	secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
+    algorithm hmac-sha512;
+    secret "G/adDW8hh7FDlZq5ZDW3JjpU/I7DzzU1PDvp26DvPQWMLg/LfM2apEOejbfdp5BXu78v/ruWbFvSK5dwYY7bIw==";
   };
   ```
 
 You don't need to publish this; just copy the key data into your named.conf file:
-  ```
+
+  ```shell
   
   key "letsencrypt" {
     algorithm hmac-sha512;
@@ -757,8 +765,10 @@ You don't need to publish this; just copy the key data into your named.conf file
   };
   
   ```
+
 And ensure you have an update policy in place in the zone that uses this key to enable update of the correct domain (which must match the domain in your yaml configuration):
-  ```
+
+  ```yaml
   
      update-policy {
         grant letsencrypt name _acme-challenge.home-assistant.io. txt;
@@ -798,6 +808,7 @@ To get this code, you must activate the 2FA or deactivate and reactivate 2FA.
 Without 2FA leave the example key.
 
 Example configuration:
+
   ```yaml
   email: your.email@example.com
   domains:
@@ -834,6 +845,7 @@ dns:
   porkbun_key: 0123456789abcdef0123456789abcdef01234
   porkbun_secret: 0123456789abcdef0123456789abcdef01234
 ```
+
 </details>
 <details>
   <summary>Dreamhost</summary>
@@ -850,6 +862,7 @@ dns:
     dreamhost_baseurl: https://api.dreamhost.com/
     dreamhost_api_key: XXXXXX
   ```
+
 </details>
 <details>
   <summary>ClouDNS</summary>
@@ -868,6 +881,7 @@ new HTTP API user from the "API & Resellers" page on top of your control panel.
     cloudns_auth_id: 12345
     cloudns_auth_password: ******
   ```
+
 API Users have full account access.  It is recommended to create an API Sub-user, which can be limited in scope.  You can use either the `sub-auth-id` or the `sub-auth-user` as follows:
 
   ```yaml
@@ -882,6 +896,7 @@ API Users have full account access.  It is recommended to create an API Sub-user
     cloudns_sub_auth_id: 12345
     cloudns_auth_password: ******
   ```
+
   ```yaml
   email: your.email@example.com
   domains:
@@ -894,6 +909,7 @@ API Users have full account access.  It is recommended to create an API Sub-user
     cloudns_sub_auth_user: alice
     cloudns_auth_password: ******
   ```
+
 </details>
 <details>
   <summary>Hurricane Electric (HE)</summary>
@@ -910,6 +926,7 @@ API Users have full account access.  It is recommended to create an API Sub-user
     he_user: me
     he_pass: ******
   ```
+
 </details>
 
 <details>
@@ -932,6 +949,7 @@ It is important to set the propagation_seconds to >= 630 seconds due to the slow
     netcup_api_password: ****
     propagation_seconds: "900"
   ```
+
 References:
 * https://helpcenter.netcup.com/de/wiki/general/unsere-api#authentifizierung
 * https://github.com/coldfix/certbot-dns-netcup/issues/28
@@ -955,6 +973,7 @@ easyDNS REST API access must be requested and granted in order to use this modul
     easydns_key: ****
     easydns_endpoint: https://rest.easydns.net
   ```
+
 </details>
 
 <details>
@@ -978,7 +997,7 @@ dns:
 
 <details>
 
-  <summary>WebSupport</summary>
+  <summary>WebSupport (currently disable - see changelog)</summary>
 
 An identifier and secret key have to be obtained to use this module (see https://admin.websupport.sk/sk/auth/apiKey).
 
@@ -994,6 +1013,7 @@ An identifier and secret key have to be obtained to use this module (see https:/
     websupport_identifier: <identifier>
     websupport_secret_key: <secret_key>
   ```
+
 </details>
 
 <details>
@@ -1010,8 +1030,8 @@ An identifier and secret key have to be obtained to use this module (see https:/
     provider: dns-domainoffensive
     domainoffensive_token: *****
   ```
-</details>
 
+</details>
 
 <details>
   <summary>noris network DNS challenge</summary>
@@ -1036,7 +1056,6 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use the 
 [GitHub repo]: https://github.com/noris-network/certbot-dns-norisnetwork#get-your-api-token
 
 </details>
-
 
 <details>
   <summary>Plesk Hosting DNS challenge</summary>
@@ -1064,7 +1083,6 @@ You can define the `propagation_seconds` explicitly. Otherwise, it will use a cu
 
 </details>
 
-
 <details>
   <summary>Simply.com DNS challenge</summary>
 
@@ -1086,9 +1104,8 @@ The API key assigned to your Simply.com account can be found in your Simply.com 
 
 </details>
 
-
 <details>
-  <summary>mijn.host DNS challenge</summary>
+  <summary>mijn.host DNS challenge (currently disable - see changelog)</summary>
 
   ```yaml
   email: your.email@example.com
@@ -1107,7 +1124,6 @@ The `mijn_host_api_key` is the account's API key.
 The API key assigned to your mijn.host account can be found in your mijn.host Control panel.
 
 </details>
-
 
 ## Certificate files
 
@@ -1138,7 +1154,7 @@ dns-ionos
 dns-linode
 dns-loopia
 dns-luadns
-dns-mijn-host
+dns-mijn-host (currently disable - see changelog)
 dns-njalla
 dns-noris
 dns-plesk
@@ -1156,7 +1172,7 @@ dns-inwx
 dns-porkbun
 dns-easydns
 dns-domainoffensive
-dns-websupport
+dns-websupport (currently disable - see changelog)
 ```
 
 ## Support
