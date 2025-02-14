@@ -1,14 +1,5 @@
 # Changelog
 
-## 5.3.2
-
-- fix infomaniak
-- sync with upstream
-
-## 5.3.1
-
-- incorporated into 5.3.0
-
 ## 5.3.0
 
 - Disabled certbot-dns-mijn-host (Breaking change)
