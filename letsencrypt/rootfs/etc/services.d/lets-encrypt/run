@@ -62,7 +62,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google" ]; then
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-namecheap" ]; then
     bashio::config.require 'dns.namecheap_username'
     bashio::config.require 'dns.namecheap_api_key'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
+    PROVIDER_ARGUMENTS+=("-v" "--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
 
 #mijn.host
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-mijn-host" ]; then
