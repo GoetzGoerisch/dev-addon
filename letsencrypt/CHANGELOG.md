@@ -1,10 +1,23 @@
 # Changelog
 
-## 5.3.1
+## 5.3.4
+
+- Improve documentation
+- Refactor configuration and align with documentation
+
+## 5.3.3
+
+- Re-enabled certbot-dns-mijn-host
+
+## 5.3.2
 
 - Update certbot to 3.2.0
 - Update acme to 3.2.0
 - Update certbot-dns-inwx to 3.0.2
+
+## 5.3.1
+
+- Add Eurodns DNS support
 
 ## 5.3.0
 
