@@ -23,6 +23,7 @@ EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 DRY_RUN=$(bashio::config 'dry_run')
 TEST_CERT=$(bashio::config 'test_cert')
+FORCE_RENEWAL=$(bashio::config 'force_renewal')
 VERBOSE=$(bashio::config 'verbose')
 
 if [ "${CHALLENGE}" == "dns" ]; then
@@ -351,9 +352,13 @@ fi
 if [ "${TEST_CERT}" = "true" ]; then
     ADDITIONAL_ARGS+=("--test-cert")
 fi
-if [ "${VERBOSE}" = "true" ]; then
-    ADDITIONAL_ARGS+=("-v")
+if [ "${FORCE_RENEWAL}" = "true" ]; then
+    ADDITIONAL_ARGS+=(" --force-renewal")
 fi
+if [ "${VERBOSE}" = "true" ]; then
+    ADDITIONAL_ARGS+=("-vvv")
+fi
+
 
 # Set External Account Binding
 if bashio::config.has_value 'eab_kid' ; then

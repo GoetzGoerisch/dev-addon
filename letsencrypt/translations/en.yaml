@@ -50,6 +50,10 @@ configuration:
     name: Issue test certificates
     description: >-
       Obtain a test certificate from a staging server.
+  force_renewal:
+    name: Force renew
+    description: >-
+      Force renew existing certificates.
   verbose:
     name: Verbose
     description: >-
