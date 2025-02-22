@@ -25,20 +25,6 @@ DRY_RUN=$(bashio::config 'dry_run')
 TEST_CERT=$(bashio::config 'test_cert')
 VERBOSE=$(bashio::config 'verbose')
 
-
-# Define additional arguments based on configuration
-ADDITIONAL_ARGS=()
-
-if [ "${DRY_RUN}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--dry-run")
-fi
-if [ "${TEST_CERT}" = "true" ]; then
-    ADDITIONAL_ARGS+=("--test-cert")
-fi
-if [ "${VERBOSE}" = "true" ]; then
-    ADDITIONAL_ARGS+=("-v")
-fi
-
 if [ "${CHALLENGE}" == "dns" ]; then
     bashio::log.info "Selected DNS Provider: ${DNS_PROVIDER}"
 
@@ -355,6 +341,18 @@ else
             break
         fi
     done
+fi
+
+# Define additional arguments based on configuration
+ADDITIONAL_ARGS=()
+if [ "${DRY_RUN}" = "true" ]; then
+    ADDITIONAL_ARGS+=("--dry-run")
+fi
+if [ "${TEST_CERT}" = "true" ]; then
+    ADDITIONAL_ARGS+=("--test-cert")
+fi
+if [ "${VERBOSE}" = "true" ]; then
+    ADDITIONAL_ARGS+=("-v")
 fi
 
 # Set External Account Binding
