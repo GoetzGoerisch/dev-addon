@@ -23,7 +23,6 @@ EAB_KID=$(bashio::config 'eab_kid')
 EAB_HMAC_KEY=$(bashio::config 'eab_hmac_key')
 DRY_RUN=$(bashio::config 'dry_run')
 TEST_CERT=$(bashio::config 'test_cert')
-FORCE_RENEWAL=$(bashio::config 'force_renewal')
 VERBOSE=$(bashio::config 'verbose')
 
 if [ "${CHALLENGE}" == "dns" ]; then
@@ -48,7 +47,8 @@ if [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-azure" ]; then
       cp -f "/share/${AZURE_CREDS}" "/data/azure_creds"
       chmod 600 "/data/azure_creds"
     else
-      bashio::log.info "Azure credentials file doesn't exist in folder share."
+      bashio::log.error "Azure credentials file '${AZURE_CREDS}' not found in /share directory"  
+      exit 1
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-config" "/data/azure_creds")
 
@@ -90,7 +90,7 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-directadmin" ]; 
 # domainoffensive
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-domainoffensive" ]; then
     bashio::config.require 'dns.domainoffensive_token'
-    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--agree-tos" "-m ${EMAIL}")
+    PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey")
 
 # Dreamhost
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-dreamhost" ]; then
@@ -153,7 +153,8 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-google" ]; then
       cp -f "/share/${GOOGLE_CREDS}" "/data/${GOOGLE_CREDS}"
       chmod 600 "/data/${GOOGLE_CREDS}"
     else
-      bashio::log.info "Google Credentials File doesnt exists in folder share."
+      bashio::log.error "Google credentials file '${GOOGLE_CREDS}' not found in /share directory"  
+      exit 1
     fi
     PROVIDER_ARGUMENTS+=("--${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/${GOOGLE_CREDS}")
 
@@ -272,10 +273,10 @@ elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-simply" ]; then
 
 # TransIP
 elif [ "${CHALLENGE}" == "dns" ] && [ "${DNS_PROVIDER}" == "dns-transip" ]; then
-    bashio::config.require.username 'dns.transip_username'
+    bashio::config.require 'dns.transip_username'
     bashio::config.require 'dns.transip_api_key'
     if (( PROPAGATION_SECONDS < 240 )); then
-        bashio::log.info "Increasing DNS propagation limit for TransIP to at least 240 seconds."
+        bashio::log.info "Increasing DNS propagation time for TransIP to at least 240 seconds."
         PROPAGATION_SECONDS=240
     fi
     PROVIDER_ARGUMENTS+=("--authenticator" "${DNS_PROVIDER}" "--${DNS_PROVIDER}-credentials" "/data/dnsapikey" "--${DNS_PROVIDER}-propagation-seconds" "${PROPAGATION_SECONDS}")
@@ -344,6 +345,12 @@ else
     done
 fi
 
+# Set External Account Binding
+if bashio::config.has_value 'eab_kid' ; then
+    bashio::config.require 'eab_hmac_key'
+    EAB_ARGUMENTS+=("--eab-kid" "${EAB_KID}" "--eab-hmac-key" "${EAB_HMAC_KEY}")
+fi
+
 # Define additional arguments based on configuration
 ADDITIONAL_ARGS=()
 if [ "${DRY_RUN}" = "true" ]; then
@@ -352,18 +359,8 @@ fi
 if [ "${TEST_CERT}" = "true" ]; then
     ADDITIONAL_ARGS+=("--test-cert")
 fi
-if [ "${FORCE_RENEWAL}" = "true" ]; then
-    ADDITIONAL_ARGS+=(" --force-renewal")
-fi
 if [ "${VERBOSE}" = "true" ]; then
     ADDITIONAL_ARGS+=("-vvv")
-fi
-
-
-# Set External Account Binding
-if bashio::config.has_value 'eab_kid' ; then
-    bashio::config.require 'eab_hmac_key'
-    EAB_ARGUMENTS+=("--eab-kid" "${EAB_KID}" "--eab-hmac-key" "${EAB_HMAC_KEY}")
 fi
 
 # Generate a new certificate if necessary or expand a previous certificate if domains has changed
@@ -376,8 +373,7 @@ if [ "$CHALLENGE" == "dns" ]; then
         --config-dir "$CERT_DIR" --work-dir "$WORK_DIR" \
         --preferred-challenges "$CHALLENGE" "${PROVIDER_ARGUMENTS[@]}" \
         --preferred-chain "ISRG Root X1" \
-        "${EAB_ARGUMENTS[@]}" \
-
+        "${EAB_ARGUMENTS[@]}"
 else
     certbot certonly --non-interactive --keep-until-expiring --expand \
         --email "$EMAIL" --agree-tos \

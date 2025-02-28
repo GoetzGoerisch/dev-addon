@@ -995,7 +995,7 @@ certfile: fullchain.pem
 keyfile: privkey.pem
 challenge: dns
 dns:
-  provider: dns-luadna
+  provider: dns-luadns
   luadns_email: your.email@example.com
   luadns_token: luadns-token
 ```
