@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.4.4
+
+- Update certbot to 3.3.0
+- Update acme to 3.3.0
+- Update cryptography to 44.0.2
+
+## 5.4.3
+
+- Update certbot-dns-websupport to 3.0.0
+- Re-enable certbot-dns-websupport
+
+## 5.4.2
+
+- Update certbot-dns-dynu to 0.0.8
+- Update certbot-dns-gandi to 1.6.1
+  (incl. switch back to a renamed updated original version)
+
 ## 5.4.1
 
 - Fix TransIP global_key handling
